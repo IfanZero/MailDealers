@@ -16,9 +16,9 @@ import java.util.Properties;
 
 @Slf4j
 @Service
-public class ReadMailServiceImpl implements ReadMailService{
+public class ReadMailServiceImpl{
 
-    @Override
+//    @Override
     public void readMail() {
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "pop3");       // 协议
@@ -59,6 +59,9 @@ public class ReadMailServiceImpl implements ReadMailService{
 
     }
 
+    private void parseMessage(){
+
+    }
     private void parseMessage(Message[] messages) {
         if (messages == null || messages.length < 1) {
 //            throw new MessagingException("未找到要解析的邮件!");
