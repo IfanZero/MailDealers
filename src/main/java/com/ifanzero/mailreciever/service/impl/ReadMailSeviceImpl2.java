@@ -25,10 +25,13 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
 //            URLName urlname = new URLName("pop3","pop.genomics.cn",110,null,"abc@genomics.cn","****");
             props.setProperty("mail.store.protocol", "pop3");       // 协议
             props.setProperty("mail.pop3.port", "110");             // 端口
-            props.setProperty("mail.pop3.host", "pop.126.com");    // pop3服务器
+//            props.setProperty("mail.pop3.host", "pop.126.com");    // pop3服务器
+            props.setProperty("mail.pop3.host", "pop.qq.com");    // pop3服务器
             Session session  = Session.getInstance(props);
             Store store = session.getStore("pop3");
-            store.connect("linyangfan940403@126.com", "+lin19940403+++");
+//            store.connect("481294312@qq.com", "a5740602");
+//            store.connect("linyangfan940403@126.com", "+lin19940403+++");
+            store.connect("linyangfan94@qq.com", "qtbshixtyagtbfjg");
             Folder folder = store.getDefaultFolder();// 默认父目录
             if (folder == null) {
                 System.out.println("服务器不可用");
@@ -55,13 +58,13 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
             // fProfile.add(FetchProfile.Item.ENVELOPE);
             // folder.fetch(messages, fProfile);// 选择性的下载邮件
             // 5. 循环处理每个邮件并实现邮件转为新闻的功能
-            for (int i = msgCount-1; i >= msgCount-3; i--) {
+            for (int i = msgCount-1; i >= msgCount-4; i--) {
                 // 单个邮件
                 System.out.println("第" + i +"邮件开始");
 //                mailReceiver(messages[i]);
                 System.out.println("第" + i +"邮件结束");
                 //邮件读取用来校验
-                messages[i].writeTo(new FileOutputStream("/Users/apple/mail/attachment/hpop3MailReceiver"+ i +".eml"));
+                messages[i].writeTo(new FileOutputStream("E:\\Ifan\\mail\\hpop3MailReceiver"+ i +".eml"));
             }
             // 7. 关闭 Folder 会真正删除邮件, false 不删除
             popFolder.close(true);
@@ -183,7 +186,11 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
 
     public static void main(String[] args) {
         ReadMailSeviceImpl2 readMailService = new ReadMailSeviceImpl2();
-        String content = readMailService.readMailFromLocalEml("/Users/apple/mail/attachment/hpop3MailReceiver2940.eml");
+//        readMailService.readMail();
+//        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\58.eml");
+//        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\51.eml");
+//        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\zhaoping.eml");
+        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\hpop3MailReceiver2730.eml");
         System.out.println("-----------------------------------");
         System.out.println(content);
         System.out.println("-----------------------------------");

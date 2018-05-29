@@ -12,11 +12,11 @@ import javax.annotation.Resource;
 @SpringBootTest
 public class MailrecieverApplicationTests {
 
-	@Resource
-	ReadMailService readMailService;
+//	@Resource
+//	ReadMailService readMailService;
 	@Test
 	public void contextLoads() {
-		readMailService.readMail();
+//		readMailService.readMail();
 	}
 
 }
