@@ -3,6 +3,7 @@ package com.ifanzero.mailreciever.web;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.ifanzero.mailreciever.dao.dto.CusServ53Request;
+import com.ifanzero.mailreciever.dao.dto.CusServ53Response;
 import com.ifanzero.mailreciever.dao.dto.QQAdsResponse;
 import com.ifanzero.mailreciever.dao.dto.QQadsRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 @Slf4j
@@ -41,10 +43,10 @@ public class MessageReceiverController {
     @RequestMapping("/cus_serv_53/message")
     public Object add53(@RequestBody CusServ53Request request) {
         log.info(request.toString());
-        QQAdsResponse qqAdsResponse = new QQAdsResponse();
-        qqAdsResponse.setCode(0);
-        qqAdsResponse.setMsg("success");
 
-        return qqAdsResponse;
+        CusServ53Response response = new CusServ53Response();
+        response.setCmd("OK");
+        response.setToken(request.getToken());
+        return response;
     }
 }

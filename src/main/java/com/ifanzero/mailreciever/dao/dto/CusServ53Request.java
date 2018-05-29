@@ -13,6 +13,33 @@ public class CusServ53Request {
     private SessionBean session;
     private EndBean end;
     private List<MessageBean> message;
+    private String msg_id;
+    private String cmd;
+    private String token;
+
+    public String getMsg_id() {
+        return msg_id;
+    }
+
+    public void setMsg_id(String msg_id) {
+        this.msg_id = msg_id;
+    }
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public SessionBean getSession() {
         return session;

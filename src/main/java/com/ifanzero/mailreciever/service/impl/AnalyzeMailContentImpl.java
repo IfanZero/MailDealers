@@ -2,9 +2,13 @@ package com.ifanzero.mailreciever.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.ifanzero.mailreciever.dao.domain.EmployeeForTrans;
-import com.ifanzero.mailreciever.service.AnalyzeMailContent;
+import com.ifanzero.mailreciever.service.AnalyzeContent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-public class AnalyzeMailContentImpl implements AnalyzeMailContent {
+@Slf4j
+@Service
+public class AnalyzeMailContentImpl implements AnalyzeContent {
     @Override
     public EmployeeForTrans analyze51Mail(String content) {
         EmployeeForTrans employee = new EmployeeForTrans();
@@ -77,15 +81,13 @@ public class AnalyzeMailContentImpl implements AnalyzeMailContent {
         ReadMailSeviceImpl2 readMailService = new ReadMailSeviceImpl2();
         String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\hpop3MailReceiver2730.eml");
         AnalyzeMailContentImpl analyzeMailContent = new AnalyzeMailContentImpl();
-        EmployeeForTrans Employee=analyzeMailContent.analyze51Mail(content);
-
-        /*String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\zhaoping.eml");
+        EmployeeForTrans employee =analyzeMailContent.analyze51Mail(content);
+/*String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\zhaoping.eml");
         AnalyzeMailContentImpl analyzeMailContent = new AnalyzeMailContentImpl();
         EmployeeForTrans Employee=analyzeMailContent.analyzeZhaoPinMail(content);*/
        /* String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\58.eml");
         AnalyzeMailContentImpl analyzeMailContent = new AnalyzeMailContentImpl();
-        EmployeeForTrans Employee=analyzeMailContent.analyze58Mail(content);*/
-
-        System.out.println(Employee);
+        EmployeeForTrans Employee=analyzeMailContent.analyze58Mail(content);*/        System.out.println(employee
+        );
     }
 }
