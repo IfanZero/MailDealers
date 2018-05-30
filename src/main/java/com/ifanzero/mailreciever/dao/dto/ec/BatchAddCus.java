@@ -1,4 +1,4 @@
-package com.ifanzero.mailreciever.dao.dto;
+package com.ifanzero.mailreciever.dao.dto.ec;
 
 import com.ifanzero.mailreciever.dao.domain.EmployeeForTrans;
 

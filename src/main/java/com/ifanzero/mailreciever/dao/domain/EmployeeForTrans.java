@@ -4,6 +4,8 @@ import cn.hutool.core.util.ReflectUtil;
 import org.springframework.util.StringUtils;
 
 public class EmployeeForTrans {
+    private String employId;
+
     private String f_name;
     private String f_birthday;
     private String f_mobile;

@@ -1,4 +1,4 @@
-package com.ifanzero.mailreciever.dao.dto;
+package com.ifanzero.mailreciever.dao.dto.qq_ads;
 
 public class QQAdsResponse {
     private static final String SUCCESS="success";

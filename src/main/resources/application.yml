@@ -1,0 +1,11 @@
+mapper:
+  mappers: com.ifanzero.mailreciever.dao.MyMapper
+#    - tk.mybatis.mapper.common.Mapper
+#    - tk.mybatis.mapper.common.Mapper2
+  notEmpty: true
+spring:
+  datasource:
+    name: ec_resolver
+    url: jdbc:mysql://localhost:3306/ec_resolver?useUnicode=true&characterEncoding=UTF-8
+    username: mail
+    password: 123456

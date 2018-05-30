@@ -1,30 +1,34 @@
 package com.ifanzero.mailreciever.web;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
-import com.ifanzero.mailreciever.dao.dto.CusServ53Request;
-import com.ifanzero.mailreciever.dao.dto.CusServ53Response;
-import com.ifanzero.mailreciever.dao.dto.QQAdsResponse;
-import com.ifanzero.mailreciever.dao.dto.QQadsRequest;
+import cn.hutool.json.JSONUtil;
+import com.ifanzero.mailreciever.dao.dto.cus_serv53.CusServ53AllContent;
+import com.ifanzero.mailreciever.dao.dto.cus_serv53.CusServ53AllHeader;
+import com.ifanzero.mailreciever.dao.dto.cus_serv53.CusServ53RequestHeader;
+import com.ifanzero.mailreciever.dao.dto.cus_serv53.CusServ53Response;
+import com.ifanzero.mailreciever.dao.dto.qq_ads.QQAdsResponse;
+import com.ifanzero.mailreciever.dao.dto.qq_ads.QQadsRequest;
+import com.ifanzero.mailreciever.service.CusServ53Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 @Slf4j
 @Controller
 @RequestMapping("/api")
 public class MessageReceiverController {
+    @Resource
+    private CusServ53Service cusServ53Service;
     @ResponseBody
     @RequestMapping("/qq_ads/message")
     public Object addQQ(@RequestBody QQadsRequest request) {
@@ -41,12 +45,49 @@ public class MessageReceiverController {
 
     @ResponseBody
     @RequestMapping("/cus_serv_53/message")
-    public Object add53(@RequestBody CusServ53Request request) {
-        log.info(request.toString());
+    public Object add53(HttpServletRequest request, HttpServletResponse response) {
+        StringBuilder sb = new StringBuilder();
+        InputStream inputStream = null;
+        BufferedReader bufferedReader = null;
+        try {
+            inputStream = request.getInputStream();
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-        CusServ53Response response = new CusServ53Response();
-        response.setCmd("OK");
-        response.setToken(request.getToken());
-        return response;
+        String body = sb.toString();
+        CusServ53RequestHeader cusServ53RequestHeader = JSONUtil.toBean(body,CusServ53RequestHeader.class);
+        if ("talk_info".equals(cusServ53RequestHeader.getCmd())){
+            CusServ53AllHeader cusServ53AllHeader = JSONUtil.toBean(body,CusServ53AllHeader.class);
+            cusServ53Service.saveChannal(cusServ53AllHeader.getContent());
+        }
+        if ("customer".equals(cusServ53RequestHeader.getCmd())){
+            cusServ53Service.saveBasic(cusServ53RequestHeader);
+        }
+        log.info("收到请求报文："+body);
+        CusServ53Response response53 = new CusServ53Response();
+        response53.setCmd("OK");
+        response53.setToken(cusServ53RequestHeader.getToken());
+        return response53;
     }
 }

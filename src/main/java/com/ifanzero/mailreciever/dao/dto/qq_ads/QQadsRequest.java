@@ -1,5 +1,5 @@
 
-package com.ifanzero.mailreciever.dao.dto;
+package com.ifanzero.mailreciever.dao.dto.qq_ads;
 
 
 import java.util.List;

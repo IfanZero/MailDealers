@@ -64,6 +64,11 @@ public class AnalyzeMailContentImpl implements AnalyzeContent {
     }
 
     @Override
+    public EmployeeForTrans LoadCusServ53Info(String content) {
+        return null;
+    }
+
+    @Override
     public EmployeeForTrans analyze58Mail(String content) {
         EmployeeForTrans employeeForTrans = new EmployeeForTrans();
         String subContent = StrUtil.subAfter(content,"主题: (58.com)",true);

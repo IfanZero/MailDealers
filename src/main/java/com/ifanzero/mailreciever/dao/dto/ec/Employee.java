@@ -1,4 +1,4 @@
-package com.ifanzero.mailreciever.dao.dto;
+package com.ifanzero.mailreciever.dao.dto.ec;
 
 public class Employee {
 

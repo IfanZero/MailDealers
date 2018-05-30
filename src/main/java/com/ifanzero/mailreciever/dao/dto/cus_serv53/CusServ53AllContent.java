@@ -1,8 +1,8 @@
-package com.ifanzero.mailreciever.dao.dto;
+package com.ifanzero.mailreciever.dao.dto.cus_serv53;
 
 import java.util.List;
 
-public class CusServ53Request {
+public class CusServ53AllContent {
 
     /**
      * message : [{"worker_name":"Miss郑","company_id":"72140486","msg_type":"p","id6d":"10200288","talk_id":"96636357808","worker_id":"2445713491@qq.com","msg":"<p><span style=\"font-family: 宋体;\"><strong>欢迎访问善班官网！<\/strong><\/span><\/p><p><span style=\"font-family: 宋体;\"><strong>高薪岗位等你来，专业技能 商业实战 签约保就业，不就业退费，免费试听，快速收获1-2年职场实战经验！<\/strong><\/span><\/p><p><span style=\"font-family: 宋体;\"><br /><strong>【姓名 电话】即可免费体验善班训练营，秒抢价值3980元课程，限时免费！快来抢吧！<\/strong><\/span><\/p><p>&nbsp;<\/p>","msg_time":"20161228143820"},{"worker_name":"Miss郑","company_id":"72140486","msg_type":"p","id6d":"10200288","talk_id":"96636357808","worker_id":"2445713491@qq.com","msg":"您好，我是善班财务信息化就业指导郑老师，请问有什么可以帮到您吗？","msg_time":"20161228143833"}]
@@ -13,33 +13,7 @@ public class CusServ53Request {
     private SessionBean session;
     private EndBean end;
     private List<MessageBean> message;
-    private String msg_id;
-    private String cmd;
-    private String token;
 
-    public String getMsg_id() {
-        return msg_id;
-    }
-
-    public void setMsg_id(String msg_id) {
-        this.msg_id = msg_id;
-    }
-
-    public String getCmd() {
-        return cmd;
-    }
-
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public SessionBean getSession() {
         return session;
