@@ -1,8 +1,10 @@
 package com.ifanzero.mailreciever.service;
 
+import java.util.Map;
+
 public interface ReadMailService {
      void readMail();
 
 
-     String readMailFromLocalEml(String path);
+     Map<String,StringBuilder> readMailFromLocalEml(String path);
 }

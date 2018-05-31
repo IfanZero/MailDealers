@@ -7,6 +7,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class ReadMailSeviceImpl2 implements ReadMailService{
@@ -80,20 +82,24 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
     }
 
     @Override
-    public String readMailFromLocalEml(String path) {
+    public Map<String,StringBuilder> readMailFromLocalEml(String path) {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         InputStream inMsg;
         StringBuilder content = new StringBuilder();
+        StringBuilder html = new StringBuilder();
+        Map<String,StringBuilder> maps = new HashMap<>();
         try {
             inMsg = new FileInputStream(path);
             Message msg = new MimeMessage(session, inMsg);
-            mailReceiver(msg,content);
+            mailReceiver(msg,content,html);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return content.toString();
+        maps.put("content",content);
+        maps.put("html",html);
+        return maps;
     }
 
 
@@ -107,7 +113,7 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
-    private void mailReceiver(Message msg,StringBuilder content)throws Exception{
+    private void mailReceiver(Message msg,StringBuilder content,StringBuilder html)throws Exception{
         // 发件人信息
         Address[] froms = msg.getFrom();
         if(froms != null) {
@@ -121,10 +127,10 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
         Object o = msg.getContent();
         if(o instanceof Multipart) {
             Multipart multipart = (Multipart) o ;
-            reMultipart(multipart,content);
+            reMultipart(multipart,content,html);
         } else if (o instanceof Part){
             Part part = (Part) o;
-            rePart(part,content);
+            rePart(part,content,html);
         } else {
             System.out.println("类型" + msg.getContentType());
             System.out.println("内容" + msg.getContent());
@@ -135,8 +141,8 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
      * @param part 解析内容
      * @throws Exception
      */
-    private void rePart(Part part,StringBuilder content) throws MessagingException,
-            UnsupportedEncodingException, IOException, FileNotFoundException {
+    private void rePart(Part part,StringBuilder content,StringBuilder html) throws MessagingException,
+            IOException {
         if (part.getDisposition() != null) {
 
             String strFileNmae = MimeUtility.decodeText(part.getFileName()); //MimeUtility.decodeText解决附件名乱码问题
@@ -157,7 +163,8 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
                 System.out.println("文本内容：" + part.getContent());
                 content.append(part.getContent());
             } else {
-                //System.out.println("HTML内容：" + part.getContent());
+                html.append(part.getContent());
+                System.out.println("HTML内容：" + part.getContent());
             }
         }
     }
@@ -166,7 +173,7 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
      * @param multipart // 接卸包裹（含所有邮件内容(包裹+正文+附件)）
      * @throws Exception
      */
-    private void reMultipart(Multipart multipart,StringBuilder content) throws Exception {
+    private void reMultipart(Multipart multipart,StringBuilder content,StringBuilder html) throws Exception {
         //System.out.println("邮件共有" + multipart.getCount() + "部分组成");
         // 依次处理各个部分
         for (int j = 0, n = multipart.getCount(); j < n; j++) {
@@ -177,9 +184,9 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
             if (part.getContent() instanceof Multipart) {
                 Multipart p = (Multipart) part.getContent();// 转成小包裹
                 //递归迭代
-                reMultipart(p,content);
+                reMultipart(p,content,html);
             } else {
-                rePart(part,content);
+                rePart(part,content,html);
             }
         }
     }
@@ -190,9 +197,9 @@ public class ReadMailSeviceImpl2 implements ReadMailService{
 //        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\58.eml");
 //        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\51.eml");
 //        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\zhaoping.eml");
-        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\hpop3MailReceiver2730.eml");
-        System.out.println("-----------------------------------");
-        System.out.println(content);
-        System.out.println("-----------------------------------");
+//        String content = readMailService.readMailFromLocalEml("E:\\Ifan\\mail\\hpop3MailReceiver2730.eml");
+//        System.out.println("-----------------------------------");
+//        System.out.println(content);
+//        System.out.println("-----------------------------------");
     }
 }

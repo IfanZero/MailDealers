@@ -8,7 +8,7 @@ public interface AnalyzeContent {
 
     EmployeeForTrans analyze58Mail(String content);
 
-    EmployeeForTrans analyzeZhaoPinMail(String content);
+    EmployeeForTrans analyzeZhaoPinMail(String content,String html);
 
     EmployeeForTrans LoadCusServ53Info(String content);
 

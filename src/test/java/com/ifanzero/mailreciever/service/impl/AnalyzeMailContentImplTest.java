@@ -13,8 +13,8 @@ public class AnalyzeMailContentImplTest {
     @Test
     public void analyze51Mail() throws Exception {
         ReadMailSeviceImpl2 readMailService = new ReadMailSeviceImpl2();
-        String content = readMailService.readMailFromLocalEml("./");
-        AnalyzeMailContentImpl analyzeMailContent = new AnalyzeMailContentImpl();
+//        String content = readMailService.readMailFromLocalEml("./");
+//        AnalyzeMailContentImpl analyzeMailContent = new AnalyzeMailContentImpl();
 //        Employee employee=analyzeMailContent.analyze51Mail(content);
     }
 

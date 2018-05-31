@@ -2,16 +2,16 @@ package com.ifanzero.mailreciever.dao.model;
 
 import javax.persistence.*;
 
-@Table(name = "t_cust_info_53")
-public class TCustInfo53 {
+@Table(name = "t_cust_info")
+public class TCustInfo {
     @Id
+    private String phone;
+
     @Column(name = "guest_id")
     private String guestId;
 
     @Column(name = "guest_name")
     private String guestName;
-
-    private String phone;
 
     private String email;
 
@@ -25,6 +25,20 @@ public class TCustInfo53 {
      * channal
      */
     private String referer;
+
+    /**
+     * @return phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     /**
      * @return guest_id
@@ -52,20 +66,6 @@ public class TCustInfo53 {
      */
     public void setGuestName(String guestName) {
         this.guestName = guestName;
-    }
-
-    /**
-     * @return phone
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * @param phone
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     /**
